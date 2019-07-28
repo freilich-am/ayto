@@ -49,16 +49,6 @@ for (let i = 0; i < lines.length; i++) {
     }
 }
 
-// const scores = [2, 2, 2, 1, 0]
-
-/* steps:
-choose week with fewest 'free' matches,
-choose one of the matches in that week (the one appearing in the most rounds?) and reduce the number of free matches for each round it appears in,
-if that was its last match, add its restrictions,
-if at some point someone has no possible matches, abort
-repeat,
-*/
-
 const ceremonies = [
     {
 	week: 1,
