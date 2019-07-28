@@ -90,12 +90,14 @@ Jenna & Kai	3	Not A Match
 Danny & Jenna	4	Not A Match
 Kari & Kylie	5	Not A Match
 */
+
+// true denotes not a match
 const truthBooths = {
-    Justin: {Nour: false},
-    Brandon: {Remy: false},
-    Kai: {Jenna: false},
-    Danny: {Jenna: false},
-    Kari: {Kylie: false}
+    Justin: {Nour: true},
+    Brandon: {Remy: true},
+    Kai: {Jenna: true},
+    Danny: {Jenna: true},
+    Kari: {Kylie: true}
 }
 
 module.exports = {

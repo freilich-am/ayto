@@ -25,13 +25,40 @@ function getForbiddenFromTruthBoothsAndBlackouts (truthBooths, ceremonies) {
     ceremonies.filter(ceremony => !ceremony.freeBeams).forEach(ceremony => {
 	Object.keys(ceremony.matching).forEach(key => {
 	    result[key] = result[key] || {}
-	    result[key][ceremony.matching[key]] = false
+	    result[key][ceremony.matching[key]] = true // true = yes forbidden
 	})
     })
     return result
 }
 
-const unresolvedCeremonies = setup.ceremonies.filter(ceremony => ceremony.freeBeams)
+
+const ceremonies = calculateLiveMatchings(setup.ceremonies, forbiddenMatches, [])
+
+// console.log(JSON.stringify(ceremonies, null, 2))
+
+function calculateLiveMatchings (ceremonies, forbiddenMatches, matchings) {
+    return ceremonies.map(x => findLiveMatches(x, forbiddenMatches, matchings))
+}
+
+function findLiveMatches(ceremony, forbiddenMatches, matchings) {
+    console.log(JSON.stringify(forbiddenMatches, null, 2))
+    console.log(ceremony)
+    const currMatching = ceremony.matching
+    let res = ceremony
+    const liveMatchings = Object.keys(currMatching)
+	  .filter(key => key < currMatching[key])
+	  .filter(key => {
+	      console.log(!forbiddenMatches[key][currMatching[key]], key)
+	      return !forbiddenMatches[key][currMatching[key]]
+	  })
+	  .map(key => [key, currMatching[key]])
+    console.log(JSON.stringify(liveMatchings, null, 2))
+    res.liveMatches = liveMatchings
+    return res
+    
+}
+
+const unresolvedCeremonies = ceremonies.filter(ceremony => ceremony.freeBeams)
 
 let argumentObject = [
     {
@@ -71,20 +98,45 @@ function expandCases (forbidden, ceremonies, matchings, recursive = false) {
     // third find an available ceremony and choose its matches
     // add the rest of the ceremony's matches to forbidden
     // if none available, terminate
-    const newForbidden = {}
-    const newCeremonies = []
-    // const matches = []
+    const possibilities = getPossibilities(ceremonies[0]) // change
     return possibilities.map(pos => {
-	const newMatchings = [..matchings, ..possibility] // wrong syntax?
+	const tryResult = tryPos(pos, forbidden, ceremonies, matchings)
+	const newMatchings = matchings.concat(pos)
 	return {
-	    name: stringify(pos),
-	    forbidden: newForbidden,
-	    ceremonies: newCeremonies,
+	    name: JSON.stringify(pos), // special stringify
+	    forbidden: tryResult.forbidden,
+	    ceremonies: tryResult.ceremonies,
 	    matchings: newMatchings,
-	    cases: recusive ? expandCases(newForbidden, newCeremonies, newMatchings, recursive - 1) : [],
+	    cases: recusive ? expandCases(tryResult.forbidden, tryResult.ceremonies, newMatchings, recursive - 1) : [],
 	    notes: ''
 	}
     })
+}
+
+function getSubsets (array, k) {
+    let subsetsObject = [{array: [], sizeLeft: k}]
+    return array.reduce((subsets, val) => {
+	const res =  subsets.concat(subsets.map(arrayObj => {
+	    if (arrayObj.sizeLeft) {
+		return {array : [val, ...arrayObj.array], sizeLeft: arrayObj.sizeLeft - 1}
+	    }
+	}).filter(x => !!x))
+	return res
+    }, subsetsObject).filter(x => !x.sizeLeft).map(x => x.array)
+}
+
+function getPossibilities (ceremony) {
+    return getSubsets([], ceremony.liveBeams)
+}
+
+function tryPos (pos, forbidden, ceremonies, matchings) {
+    let newCeremonies = ceremonies // i hope this makes a copy!
+    let newForbidden = forbidden // a copy please!
+    resolveCeremony(pos, ceremonies[0]) // dont forget to update the live couples!
+    return {ceremonies: newCeremonies, forbidden: newForbidden}
+}
+
+function resolveCeremony () {
 }
 
 /*
