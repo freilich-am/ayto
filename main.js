@@ -118,6 +118,50 @@ printArgumentObject3(argumentObject, 1)
 // printArgumentObject4(argumentObject)
 
 
+function printArgumentObject3 (argumentObject, index, nestingLevel = 0) {
+  let i = index
+  argumentObject.forEach(currCase => {
+    let lines = []
+    if (currCase.name) lines.push('The case we are considering is ' + currCase.name)
+    if(currCase.matchings) {
+      lines.push(stringify(currCase.matchings))
+    }
+    if (!currCase.failure) {
+      if (currCase.cases && currCase.cases.length) {
+        lines.push('This is a successful path')
+        lines.push(`It has ${currCase.cases.length} subcases which are:`)
+        lines = lines.concat(currCase.cases.map(poss => {
+          return poss.name
+        }).filter(x => !!x))
+      } else {
+        lines.push(`This is possibility number ${index}`)
+        i = i + 1
+      }
+    } else {
+      if (currCase.cases && currCase.cases.length) {
+        lines.push('This is an unsuccessful path as all of its subcases fail')
+        lines.push(`It has ${currCase.cases.length} subcases which are:`)
+        lines = lines.concat(currCase.cases.map(x => x.name))
+      } else {
+        lines.push(`This possibility fails`)
+      }
+    }
+    if (currCase.notes.length) {
+      lines.push('Notes:')
+      lines = lines.concat(currCase.notes)
+    }
+    // if (currCase.cases && currCase.cases.length) {
+    // }
+    lines.forEach(line => {
+      console.log('*' + Array(nestingLevel + 1).join(' ') + line)
+    })
+    if (currCase.cases && currCase.cases.length) {
+      i = printArgumentObject3(currCase.cases, i, nestingLevel + 1)
+    }
+  })
+  return i
+}
+
 // todo: print function for forbidden
 function getForbiddenLines (forbidden) {
   let lines = ['The following are the forbidden matches:']
@@ -191,7 +235,7 @@ function expandCases (forbidden, ceremonies, matchings, recursive = false) {
   if (!possibilities.length) {
     const cerm = liveCeremonies[0]
     let lines = [`Week ${cerm.week} has no possibilities`]
-    lines.push(`it has ${cerm.freeBeams} free beams but the live couples are ${stringify(cerm.liveMatches)}`)
+    lines.push(`it has ${cerm.freeBeams} free beams but there are ${cerm.liveMatches.length} live matches`)
     return [{notes: lines, failure: true}]
   }
   return possibilities.map(pos => {
