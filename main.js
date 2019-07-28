@@ -1,5 +1,4 @@
 const setup = require('./setupAfterWeek5')
-//console.log(JSON.stringify(setup, null, 2))
 
 const truthBooths = mirror(setup.truthBooths)
 
@@ -12,13 +11,10 @@ function mirror (truthBooths) {
       result[first][second] = result[second][first] = truthBooths[first][second]
     })
   })
-  //    console.log(result)
   return result
 }
 
 const forbiddenMatches = getForbiddenFromTruthBoothsAndBlackouts(truthBooths, setup.ceremonies)
-
-// console.log(JSON.stringify(forbiddenMatches, null, 2))
 
 function getForbiddenFromTruthBoothsAndBlackouts (truthBooths, ceremonies) {
   let result = JSON.parse(JSON.stringify(truthBooths))
@@ -34,10 +30,7 @@ function getForbiddenFromTruthBoothsAndBlackouts (truthBooths, ceremonies) {
 
 const ceremonies = calculateLiveMatchings(setup.ceremonies, forbiddenMatches, [["Basit", "Jonathan"]])
 
-// console.log(JSON.stringify(ceremonies, null, 2))
-
 function calculateLiveMatchings (ceremonies, forbiddenMatches, matchings) {
-  //    console.log(JSON.stringify(ceremonies))
   let newCeremonies = JSON.parse(JSON.stringify(ceremonies))
   return newCeremonies.map(x => findLiveMatches(x, forbiddenMatches, matchings))
 }
@@ -46,6 +39,7 @@ function calculateLiveMatchings (ceremonies, forbiddenMatches, matchings) {
 
 function findLiveMatches(ceremony, forbiddenMatches, matchings) {
   const currMatching = ceremony.matching
+  ceremony.matchedCouples = []
   let res = ceremony
   const liveMatchings = Object.keys(currMatching)
 	.filter(key => key < currMatching[key]) // take each pair once
@@ -62,6 +56,7 @@ function findLiveMatches(ceremony, forbiddenMatches, matchings) {
 	  })
 	  if (isMatchMatched) {
 	    ceremony.freeBeams--
+            ceremony.matchedCouples.push(x)
 	  }
 	  if (isMemberMatched) {
 	    delete res.matching[x[0]]
@@ -76,8 +71,6 @@ function findLiveMatches(ceremony, forbiddenMatches, matchings) {
 
 const unresolvedCeremonies = ceremonies.filter(ceremony => ceremony.freeBeams)
 
-// console.log('unresolved ceremonies', JSON.stringify(unresolvedCeremonies, null, 2))
-
 let argumentObject = [
   {
     name: 'Week 5 (Jonathan and Basit)', // always put in alphabetical order?
@@ -85,15 +78,13 @@ let argumentObject = [
     ceremonies: unresolvedCeremonies,
     matchings: [["Basit", "Jonathan"]],
     cases: expandCases(forbiddenMatches, unresolvedCeremonies,[["Basit", "Jonathan"]], 20),
-    notes: ''
+    notes: []
   }
 ]
 
-argumentObject = argumentObject.map(prune)
-
 function prune (argObj) {
   argObj = propogateFailures(argObj)
-  argObj = removeFailures(argObj)
+  // argObj = removeFailures(argObj)
   return argObj
 }
 
@@ -113,17 +104,18 @@ function removeFailures (argObj) {
   return argObj
 }
 
-// console.log(JSON.stringify(argumentObject, null, 2))
-// printArgumentObject(argumentObject)
-let newArr = []
-printArgumentObject2(argumentObject, newArr)
-for (let i = 0; i < newArr.length; i++) {
-  newArr[i].possNum = i
-}
-console.log(JSON.stringify(newArr, null, 2))
-
+// printArgumentObject3(argumentObject, 1)
+printArgumentObject4(argumentObject)
 
 // todo: print function for forbidden
+function getForbiddenLines (forbidden) {
+  let lines = ['The following are the forbidden matches:']
+  Object.keys(forbidden).forEach(key => {
+    lines.push(key + ' cannot be with: ' + Object.keys(forbidden[key]).join(', '))
+  })
+  return lines                             
+}
+
 // todo: print function for matchings
 
 function printArgumentObject (argumentObject, nestingLevel = 0, prefix = '') {
@@ -135,7 +127,6 @@ function printArgumentObject (argumentObject, nestingLevel = 0, prefix = '') {
     // todo: some stuff about the ceremonies and state of forbidden matches?
     if (currCase.notes) lines.push('Notes: ' + currCase.notes)
     if (currCase.failure) lines.push('Failure')
-    //	console.log(lines)
     lines.forEach(line => {
       console.log('*' + Array(nestingLevel + 1).join(' ') + line)
     })
@@ -152,6 +143,77 @@ function printArgumentObject2 (argumentObject, newArr) {
       newArr.push(formatCase(currCase))
     }
   })
+}
+
+function printArgumentObject3 (argumentObject, index, nestingLevel = 0) {
+  let i = index
+  argumentObject.forEach(currCase => {
+    let lines = []
+    if (currCase.name) lines.push('The case we are considering is ' + currCase.name)
+    if(currCase.matchings) {
+      lines.push(stringify(currCase.matchings))
+    }
+    if (!currCase.failure) {
+      if (currCase.cases && currCase.cases.length) {
+        lines.push('This is a successful path')
+        lines.push(`It has ${currCase.cases.length} subcases which are:`)
+        lines.concat(currCase.cases.map(poss => {
+          return poss.name
+        }).filter(x => !!x))
+      } else {
+        lines.push(`This is possibility number ${index}`)
+        i = i + 1
+      }
+    } else {
+      if (currCase.cases && currCase.cases.length) {
+        lines.push('This is an unsuccessful path as all of its subcases fail')
+        lines.push(`It has ${currCase.cases.length} subcases which are:`)
+        lines.concat(currCase.cases.map(x => x.name))
+      } else {
+        lines.push(`This possibility fails`)
+      }
+    }
+    if (currCase.notes.length) {
+      lines.push('Notes:')
+      lines.concat(currCase.notes)
+    }
+    lines.forEach(line => {
+      console.log('*' + Array(nestingLevel + 1).join(' ') + line)
+    })
+    if (currCase.cases && currCase.cases.length) {
+      i = printArgumentObject3(currCase.cases, i, nestingLevel + 1)
+    }
+  })
+  return i
+}
+
+function printArgumentObject4 (argumentObject, nestingLevel = 0) {
+  argumentObject.forEach(x => printCase(x, nestingLevel))
+}
+
+function printCase (poss, nestingLevel) {
+  let lines = []
+
+  Object.keys(poss).forEach(key => {
+    switch (key) {
+    case 'cases':
+      return;
+    case 'forbidden':
+      lines = getForbiddenLines(poss[key])
+      break
+    case 'ceremonies':
+    default:
+      lines.push(`${key}: ${JSON.stringify(poss[key])}`)
+    }
+  })
+  
+  lines.forEach(line => {
+    console.log('*' + Array(nestingLevel + 1).join(' ') + line)
+  })
+
+  if (poss.cases && poss.cases.length) {
+    printArgumentObject4(poss.cases, nestingLevel + 1)
+  }
 }
 
 function formatCase (poss) {
@@ -173,23 +235,30 @@ function formatCase (poss) {
   return {unmatchedPeople, forbidden: newForbidden, matchings: poss.matchings}
 }
 
+function linifyCeremony (ceremony) {
+  let line = `in week ${ceremony.week} we have matched up ${ceremony.matchedCouples.map(x => x[0] + ' & ' + x[1]).join('; ')}`
+  return line
+}
+
 // you might not need to put all matchings into this, only new ones
 function expandCases (forbidden, ceremonies, matchings, recursive = false) {
   const liveCeremonies = ceremonies.filter(ceremony => ceremony.freeBeams)
   if (!liveCeremonies.length) {
-    //	console.log('input to expland cases')
-    //	console.log(JSON.stringify({forbidden, ceremonies, matchings, recursive}, null, 2))
-    return [] // [{notes: 'no more ceremonies'}] // + JSON.stringify({forbidden, ceremonies, matchings})}]
+    let lines = []
+    lines.concat(ceremonies.map(linifyCeremony))
+    return [{notes: lines}]
   }
   // if none available, terminate
-  const possibilities = getPossibilities(ceremonies[0]) // change
+  const possibilities = getPossibilities(liveCeremonies[0]) // change
   if (!possibilities.length) {
-    return [{notes: 'this sucks', failure: true}]
+    const cerm = liveCeremonies[0]
+    let lines = [`Week ${cerm.week} has no possibilities`]
+    lines.push(`it has ${cerm.freeBeams} free beams but the live couples are ${stringify(cerm.liveMatches)}`)
+    return [{notes: lines, failure: true}]
   }
   return possibilities.map(pos => {
     const tryResult = tryPos(pos, forbidden, ceremonies, matchings)
     const newMatchings = matchings.concat(pos)
-    // if (!recursive) {console.log(JSON.stringify('ruh roh'))}
     return {
       name: stringify(pos), // special stringify
       forbidden: tryResult.forbidden,
@@ -212,7 +281,6 @@ function stringify (pos) {
 }
 
 function getSubsets (array, k) {
-  // console.log(JSON.stringify(array, null, 2), k)
   let subsetsObject = [{array: [], sizeLeft: k}]
   return array.reduce((subsets, val) => {
     const res =  subsets.concat(subsets.map(arrayObj => {
@@ -225,7 +293,6 @@ function getSubsets (array, k) {
 }
 
 function getPossibilities (ceremony) {
-  // console.log(JSON.stringify(ceremony, null, 2))
   let subsets = getSubsets(ceremony.liveMatches, ceremony.freeBeams)
   return subsets
 }
@@ -244,9 +311,7 @@ function tryPos (pos, forbidden, ceremonies, matchings) {
     })
   })
   // third find an available ceremony and choose its matches
-  let newCeremonies = ceremonies.filter(ceremony => ceremony.freeBeams) // i hope this makes a copy!
-//  const cerm = newCeremonies.shift()
-  return {ceremonies: newCeremonies, forbidden: newForbidden, notes: noteLines.join('; ')}
+  return {ceremonies, forbidden: newForbidden, notes: noteLines}
 }
 
 
