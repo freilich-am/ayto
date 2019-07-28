@@ -1,0 +1,858 @@
+[
+  {
+    "unmatchedPeople": [
+      "Amber",
+      "Brandon",
+      "Kylie",
+      "Max"
+    ],
+    "forbidden": {
+      "Brandon": {
+        "Max": true
+      },
+      "Kylie": {},
+      "Amber": {},
+      "Max": {
+        "Brandon": true
+      }
+    },
+    "matchings": [
+      [
+        "Basit",
+        "Jonathan"
+      ],
+      [
+        "Aasha",
+        "Paige"
+      ],
+      [
+        "Danny",
+        "Remy"
+      ],
+      [
+        "Jenna",
+        "Justin"
+      ],
+      [
+        "Jasmine",
+        "Nour"
+      ],
+      [
+        "Kai",
+        "Kari"
+      ]
+    ],
+    "possNum": 0
+  },
+  {
+    "unmatchedPeople": [
+      "Amber",
+      "Brandon",
+      "Danny",
+      "Jenna",
+      "Kai",
+      "Kari",
+      "Kylie",
+      "Max",
+      "Nour",
+      "Remy"
+    ],
+    "forbidden": {
+      "Nour": {
+        "Amber": true
+      },
+      "Brandon": {
+        "Remy": true,
+        "Max": true
+      },
+      "Remy": {
+        "Brandon": true,
+        "Danny": true
+      },
+      "Kai": {
+        "Jenna": true,
+        "Danny": true
+      },
+      "Jenna": {
+        "Kai": true,
+        "Danny": true,
+        "Kylie": true
+      },
+      "Danny": {
+        "Jenna": true,
+        "Kari": true,
+        "Kai": true,
+        "Remy": true
+      },
+      "Kari": {
+        "Kylie": true,
+        "Danny": true
+      },
+      "Kylie": {
+        "Kari": true,
+        "Jenna": true
+      },
+      "Amber": {
+        "Nour": true
+      },
+      "Max": {
+        "Brandon": true
+      }
+    },
+    "matchings": [
+      [
+        "Basit",
+        "Jonathan"
+      ],
+      [
+        "Aasha",
+        "Paige"
+      ],
+      [
+        "Jasmine",
+        "Justin"
+      ]
+    ],
+    "possNum": 1
+  },
+  {
+    "unmatchedPeople": [
+      "Jasmine",
+      "Jenna",
+      "Justin",
+      "Kari",
+      "Kylie",
+      "Max",
+      "Nour",
+      "Remy"
+    ],
+    "forbidden": {
+      "Justin": {
+        "Nour": true,
+        "Max": true,
+        "Jasmine": true,
+        "Jenna": true
+      },
+      "Nour": {
+        "Justin": true,
+        "Jasmine": true
+      },
+      "Remy": {},
+      "Jenna": {
+        "Kylie": true,
+        "Jasmine": true,
+        "Justin": true
+      },
+      "Kari": {
+        "Kylie": true
+      },
+      "Kylie": {
+        "Kari": true,
+        "Jenna": true
+      },
+      "Jasmine": {
+        "Jenna": true,
+        "Justin": true,
+        "Nour": true
+      },
+      "Max": {
+        "Justin": true
+      }
+    },
+    "matchings": [
+      [
+        "Basit",
+        "Jonathan"
+      ],
+      [
+        "Danny",
+        "Kai"
+      ],
+      [
+        "Aasha",
+        "Brandon"
+      ],
+      [
+        "Amber",
+        "Paige"
+      ]
+    ],
+    "possNum": 2
+  },
+  {
+    "unmatchedPeople": [
+      "Amber",
+      "Justin",
+      "Kari",
+      "Kylie",
+      "Max",
+      "Remy"
+    ],
+    "forbidden": {
+      "Justin": {
+        "Max": true
+      },
+      "Remy": {},
+      "Kari": {
+        "Kylie": true
+      },
+      "Kylie": {
+        "Kari": true
+      },
+      "Amber": {},
+      "Max": {
+        "Justin": true
+      }
+    },
+    "matchings": [
+      [
+        "Basit",
+        "Jonathan"
+      ],
+      [
+        "Danny",
+        "Kai"
+      ],
+      [
+        "Aasha",
+        "Brandon"
+      ],
+      [
+        "Jasmine",
+        "Nour"
+      ],
+      [
+        "Jenna",
+        "Paige"
+      ]
+    ],
+    "possNum": 3
+  },
+  {
+    "unmatchedPeople": [
+      "Amber",
+      "Jasmine",
+      "Kari",
+      "Kylie",
+      "Max",
+      "Nour",
+      "Paige",
+      "Remy"
+    ],
+    "forbidden": {
+      "Nour": {
+        "Amber": true,
+        "Jasmine": true
+      },
+      "Remy": {},
+      "Kari": {
+        "Kylie": true
+      },
+      "Kylie": {
+        "Kari": true
+      },
+      "Amber": {
+        "Nour": true,
+        "Paige": true
+      },
+      "Jasmine": {
+        "Paige": true,
+        "Nour": true
+      },
+      "Max": {
+        "Paige": true
+      },
+      "Paige": {
+        "Jasmine": true,
+        "Max": true,
+        "Amber": true
+      }
+    },
+    "matchings": [
+      [
+        "Basit",
+        "Jonathan"
+      ],
+      [
+        "Danny",
+        "Kai"
+      ],
+      [
+        "Aasha",
+        "Brandon"
+      ],
+      [
+        "Jenna",
+        "Justin"
+      ]
+    ],
+    "possNum": 4
+  },
+  {
+    "unmatchedPeople": [
+      "Amber",
+      "Brandon",
+      "Kari",
+      "Kylie",
+      "Nour",
+      "Remy"
+    ],
+    "forbidden": {
+      "Nour": {
+        "Amber": true
+      },
+      "Brandon": {
+        "Remy": true
+      },
+      "Remy": {
+        "Brandon": true
+      },
+      "Kari": {
+        "Kylie": true
+      },
+      "Kylie": {
+        "Kari": true
+      },
+      "Amber": {
+        "Nour": true
+      }
+    },
+    "matchings": [
+      [
+        "Basit",
+        "Jonathan"
+      ],
+      [
+        "Danny",
+        "Kai"
+      ],
+      [
+        "Jasmine",
+        "Justin"
+      ],
+      [
+        "Aasha",
+        "Max"
+      ],
+      [
+        "Jenna",
+        "Paige"
+      ]
+    ],
+    "possNum": 5
+  },
+  {
+    "unmatchedPeople": [
+      "Brandon",
+      "Jenna",
+      "Kari",
+      "Kylie",
+      "Max",
+      "Nour"
+    ],
+    "forbidden": {
+      "Nour": {},
+      "Brandon": {
+        "Max": true
+      },
+      "Jenna": {
+        "Kylie": true
+      },
+      "Kari": {
+        "Kylie": true
+      },
+      "Kylie": {
+        "Kari": true,
+        "Jenna": true
+      },
+      "Max": {
+        "Brandon": true
+      }
+    },
+    "matchings": [
+      [
+        "Basit",
+        "Jonathan"
+      ],
+      [
+        "Danny",
+        "Kai"
+      ],
+      [
+        "Jasmine",
+        "Justin"
+      ],
+      [
+        "Amber",
+        "Paige"
+      ],
+      [
+        "Aasha",
+        "Remy"
+      ]
+    ],
+    "possNum": 6
+  },
+  {
+    "unmatchedPeople": [
+      "Amber",
+      "Brandon",
+      "Jenna",
+      "Justin",
+      "Kari",
+      "Kylie"
+    ],
+    "forbidden": {
+      "Justin": {
+        "Jenna": true
+      },
+      "Brandon": {},
+      "Jenna": {
+        "Kylie": true,
+        "Justin": true
+      },
+      "Kari": {
+        "Kylie": true
+      },
+      "Kylie": {
+        "Kari": true,
+        "Jenna": true
+      },
+      "Amber": {}
+    },
+    "matchings": [
+      [
+        "Basit",
+        "Jonathan"
+      ],
+      [
+        "Danny",
+        "Kai"
+      ],
+      [
+        "Max",
+        "Paige"
+      ],
+      [
+        "Jasmine",
+        "Nour"
+      ],
+      [
+        "Aasha",
+        "Remy"
+      ]
+    ],
+    "possNum": 7
+  },
+  {
+    "unmatchedPeople": [
+      "Amber",
+      "Brandon",
+      "Jasmine",
+      "Kari",
+      "Kylie",
+      "Nour"
+    ],
+    "forbidden": {
+      "Nour": {
+        "Amber": true,
+        "Jasmine": true
+      },
+      "Brandon": {
+        "Jasmine": true
+      },
+      "Kari": {
+        "Kylie": true
+      },
+      "Kylie": {
+        "Kari": true
+      },
+      "Amber": {
+        "Nour": true
+      },
+      "Jasmine": {
+        "Nour": true,
+        "Brandon": true
+      }
+    },
+    "matchings": [
+      [
+        "Basit",
+        "Jonathan"
+      ],
+      [
+        "Danny",
+        "Kai"
+      ],
+      [
+        "Max",
+        "Paige"
+      ],
+      [
+        "Jenna",
+        "Justin"
+      ],
+      [
+        "Aasha",
+        "Remy"
+      ]
+    ],
+    "possNum": 8
+  },
+  {
+    "unmatchedPeople": [
+      "Aasha",
+      "Amber",
+      "Kari",
+      "Kylie",
+      "Nour",
+      "Remy"
+    ],
+    "forbidden": {
+      "Nour": {
+        "Amber": true
+      },
+      "Remy": {
+        "Aasha": true
+      },
+      "Kari": {
+        "Kylie": true
+      },
+      "Kylie": {
+        "Kari": true
+      },
+      "Aasha": {
+        "Remy": true
+      },
+      "Amber": {
+        "Nour": true
+      }
+    },
+    "matchings": [
+      [
+        "Basit",
+        "Jonathan"
+      ],
+      [
+        "Danny",
+        "Kai"
+      ],
+      [
+        "Max",
+        "Paige"
+      ],
+      [
+        "Jenna",
+        "Justin"
+      ],
+      [
+        "Brandon",
+        "Jasmine"
+      ]
+    ],
+    "possNum": 9
+  },
+  {
+    "unmatchedPeople": [
+      "Amber",
+      "Danny",
+      "Justin",
+      "Kai",
+      "Kari",
+      "Kylie",
+      "Max",
+      "Nour",
+      "Paige",
+      "Remy"
+    ],
+    "forbidden": {
+      "Justin": {
+        "Nour": true,
+        "Max": true
+      },
+      "Nour": {
+        "Justin": true,
+        "Amber": true
+      },
+      "Remy": {
+        "Danny": true
+      },
+      "Kai": {
+        "Danny": true
+      },
+      "Danny": {
+        "Kari": true,
+        "Kai": true,
+        "Remy": true
+      },
+      "Kari": {
+        "Kylie": true,
+        "Danny": true
+      },
+      "Kylie": {
+        "Kari": true
+      },
+      "Amber": {
+        "Nour": true
+      },
+      "Max": {
+        "Justin": true,
+        "Paige": true
+      },
+      "Paige": {
+        "Max": true
+      }
+    },
+    "matchings": [
+      [
+        "Basit",
+        "Jonathan"
+      ],
+      [
+        "Jasmine",
+        "Jenna"
+      ],
+      [
+        "Aasha",
+        "Brandon"
+      ]
+    ],
+    "possNum": 10
+  },
+  {
+    "unmatchedPeople": [
+      "Brandon",
+      "Justin",
+      "Kylie",
+      "Nour"
+    ],
+    "forbidden": {
+      "Justin": {
+        "Nour": true
+      },
+      "Nour": {
+        "Justin": true
+      },
+      "Brandon": {},
+      "Kylie": {}
+    },
+    "matchings": [
+      [
+        "Basit",
+        "Jonathan"
+      ],
+      [
+        "Jasmine",
+        "Jenna"
+      ],
+      [
+        "Danny",
+        "Remy"
+      ],
+      [
+        "Amber",
+        "Paige"
+      ],
+      [
+        "Aasha",
+        "Max"
+      ],
+      [
+        "Kai",
+        "Kari"
+      ]
+    ],
+    "possNum": 11
+  },
+  {
+    "unmatchedPeople": [
+      "Aasha",
+      "Amber",
+      "Brandon",
+      "Danny",
+      "Justin",
+      "Kai",
+      "Kari",
+      "Kylie",
+      "Nour",
+      "Remy"
+    ],
+    "forbidden": {
+      "Justin": {
+        "Nour": true
+      },
+      "Nour": {
+        "Justin": true,
+        "Amber": true
+      },
+      "Brandon": {
+        "Remy": true,
+        "Aasha": true
+      },
+      "Remy": {
+        "Brandon": true,
+        "Danny": true
+      },
+      "Kai": {
+        "Aasha": true,
+        "Danny": true
+      },
+      "Danny": {
+        "Kari": true,
+        "Kai": true,
+        "Remy": true
+      },
+      "Kari": {
+        "Kylie": true,
+        "Danny": true
+      },
+      "Kylie": {
+        "Kari": true
+      },
+      "Aasha": {
+        "Kai": true,
+        "Brandon": true
+      },
+      "Amber": {
+        "Nour": true
+      }
+    },
+    "matchings": [
+      [
+        "Basit",
+        "Jonathan"
+      ],
+      [
+        "Jasmine",
+        "Jenna"
+      ],
+      [
+        "Max",
+        "Paige"
+      ]
+    ],
+    "possNum": 12
+  },
+  {
+    "unmatchedPeople": [
+      "Danny",
+      "Jenna",
+      "Kai",
+      "Kari",
+      "Kylie",
+      "Remy"
+    ],
+    "forbidden": {
+      "Remy": {
+        "Danny": true
+      },
+      "Kai": {
+        "Jenna": true,
+        "Danny": true,
+        "Kari": true
+      },
+      "Jenna": {
+        "Kai": true,
+        "Danny": true,
+        "Kylie": true
+      },
+      "Danny": {
+        "Jenna": true,
+        "Kari": true,
+        "Kai": true,
+        "Remy": true
+      },
+      "Kari": {
+        "Kylie": true,
+        "Danny": true,
+        "Kai": true
+      },
+      "Kylie": {
+        "Kari": true,
+        "Jenna": true
+      }
+    },
+    "matchings": [
+      [
+        "Basit",
+        "Jonathan"
+      ],
+      [
+        "Justin",
+        "Max"
+      ],
+      [
+        "Aasha",
+        "Brandon"
+      ],
+      [
+        "Jasmine",
+        "Nour"
+      ],
+      [
+        "Amber",
+        "Paige"
+      ]
+    ],
+    "possNum": 13
+  },
+  {
+    "unmatchedPeople": [
+      "Aasha",
+      "Brandon",
+      "Jenna",
+      "Kai",
+      "Kari",
+      "Kylie"
+    ],
+    "forbidden": {
+      "Brandon": {
+        "Aasha": true
+      },
+      "Kai": {
+        "Jenna": true,
+        "Aasha": true,
+        "Kari": true
+      },
+      "Jenna": {
+        "Kai": true,
+        "Kylie": true
+      },
+      "Kari": {
+        "Kylie": true,
+        "Kai": true
+      },
+      "Kylie": {
+        "Kari": true,
+        "Jenna": true
+      },
+      "Aasha": {
+        "Kai": true,
+        "Brandon": true
+      }
+    },
+    "matchings": [
+      [
+        "Basit",
+        "Jonathan"
+      ],
+      [
+        "Justin",
+        "Max"
+      ],
+      [
+        "Danny",
+        "Remy"
+      ],
+      [
+        "Jasmine",
+        "Nour"
+      ],
+      [
+        "Amber",
+        "Paige"
+      ]
+    ],
+    "possNum": 14
+  }
+]
