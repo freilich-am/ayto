@@ -18,6 +18,8 @@ function mirror (truthBooths) {
 
 const forbiddenMatches = getForbiddenFromTruthBoothsAndBlackouts(truthBooths, setup.ceremonies)
 
+// console.log(JSON.stringify(forbiddenMatches, null, 2))
+
 function getForbiddenFromTruthBoothsAndBlackouts (truthBooths, ceremonies) {
     let result = JSON.parse(JSON.stringify(truthBooths))
     ceremonies.filter(ceremony => !ceremony.freeBeams).forEach(ceremony => {
@@ -42,15 +44,10 @@ let argumentObject = [
     }
 ]
 
-printArgumentObject(argumentObject)
+// printArgumentObject(argumentObject)
 
 // todo: print function for forbidden
 // todo: print function for matchings
-
-// this function is a stub, should it be recursive?
-function expandCases (forbidden, ceremonies, matchings, recursive = false) {
-    return []
-}
 
 function printArgumentObject (argumentObject, nestingLevel = 0, prefix = '') {
     argumentObject.forEach(currCase => {
@@ -68,25 +65,29 @@ function printArgumentObject (argumentObject, nestingLevel = 0, prefix = '') {
     })
 }
 
-/*
-for (let i = 0; i < matchingCeremonies.length; i++) {
-    const ceremony = matchingCeremonies[i]
-    const liveCouples = getLiveCouples(ceremony)
-    const possibilities = getPossibilities(liveCouples, ceremony.freeBeams)
-    possibilities.forEach(x => tryPossibility(x, matchingCeremonies, forbiddenMatches, argumentObject))
+function expandCases (forbidden, ceremonies, matchings, recursive = false) {
+    // first, incorporate matches, removing all references etc
+    // second, update ceremonies and remove resolved
+    // third find an available ceremony and choose its matches
+    // add the rest of the ceremony's matches to forbidden
+    // if none available, terminate
+    const newForbidden = {}
+    const newCeremonies = []
+    // const matches = []
+    return possibilities.map(pos => {
+	const newMatchings = [..matchings, ..possibility] // wrong syntax?
+	return {
+	    name: stringify(pos),
+	    forbidden: newForbidden,
+	    ceremonies: newCeremonies,
+	    matchings: newMatchings,
+	    cases: recusive ? expandCases(newForbidden, newCeremonies, newMatchings, recursive - 1) : [],
+	    notes: ''
+	}
+    })
 }
 
-// an argument object is a series of cases looking like:
-let argumentObject = [
-    {
-	name: 'Jonathan and Basit, Danny and Kai, in week 1;',
-	forbiddenMatches: {}, // a forbidden matches object
-	confirmedMatches: [], // an array of matches
-	ceremonyTotals: {}, // a ceremonies object
-	subCases: [] // an array of cases
-    }
-]
-
+/*
 function getLiveCouples (ceremony, forbiddenMatches) {
     // go through the couples in the ceremony and filter based on forbidden matches
 }
@@ -106,6 +107,4 @@ function tryPossibility (possibility, matchingCeremonies, forbiddenMatches, argu
 function addCouple (couple, matchingCeremonies, forbiddenMatches) {
     // remove all references to the couple from the matching ceremonies and forbiddenMatches
 }
-
-// console.log(JSON.stringify(argumentObject, null, 2))
 */
